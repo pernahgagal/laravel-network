@@ -3,7 +3,8 @@
         <x-container>
             <div class="flex">
                 <div class="flex-shrink-0 mr-3">
-                    <img class="rounded-full w-16 h-16 border-2 boder-blue-500 p-1" src="{{ $user->avatar() }}" alt="{{ $user->name }}">
+                    <img class="rounded-full w-16 h-16 border-2 boder-blue-500 p-1" src="{{ $user->avatar() }}"
+                        alt="{{ $user->name }}">
                 </div>
                 <div>
                     <h1 class="font-semibold mb-3">{{ $user->name }}</h1>
@@ -18,10 +19,8 @@
     <x-statistic :user="$user" />
 
     <x-container>
-        <div class="grid grid-cols-2">
-            <div class="space-y-5">
-                <x-statuses :statuses=$statuses />
-            </div>
+        <div class="grid grid-cols-3 gap-5">
+            <x-following :users="$follow" />
         </div>
     </x-container>
 
