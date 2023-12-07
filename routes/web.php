@@ -5,6 +5,7 @@ use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\ProfileInformationController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\UpdatePasswordController;
 use App\Http\Controllers\UpdateProfileInformationController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('profile')->group(function () {
         Route::get('edit', [UpdateProfileInformationController::class, 'edit'])->name('profile.edit');
-        Route::patch('edit', [UpdateProfileInformationController::class, 'update'])->name('profile.update');
+        Route::patch('edit', [UpdateProfileInformationController::class, 'update']);
+
+        Route::get('password/edit', [UpdatePasswordController::class, 'edit'])->name('password.edit');
+        Route::patch('password/edit', [UpdatePasswordController::class, 'update'])->name('password.update');
 
         Route::get('{user}/{follows}', [FollowingController::class, 'index'])->name('follow.index');
         Route::post('{user}/store', [FollowingController::class, 'store'])->name('follow.store');
