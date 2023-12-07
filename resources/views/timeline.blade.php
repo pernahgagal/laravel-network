@@ -35,14 +35,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-5">
-                <div class="border p-5 rounded-xl">
-                    <h1 class="font-semibold mb-5">Recently Follows</h1>
-                    <div class="space-y-5">
-                        <x-following :users="Auth::user()->follows()->limit(5)->get()" />
+            @if (auth()->user()->follows()->count())
+                <div class="col-span-5">
+                    <div class="border p-5 rounded-xl">
+                        <h1 class="font-semibold mb-5">Recently Follows</h1>
+                        <div class="space-y-5">
+                            <x-following :users="Auth::user()->follows()->limit(5)->get()" />
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </x-container>
 </x-app-layout>
