@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Following;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Following;
 
     /**
      * The attributes that are mass assignable.
@@ -68,30 +69,5 @@ class User extends Authenticatable
                             ->orWhere('user_id', $this->id)
                             ->latest()
                             ->get();
-    }
-
-    public function follows()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id')->withTimestamps();
-    }
-
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'following_user_id', 'user_id')->withTimestamps();
-    }
-
-    public function follow(User $user)
-    {
-        return $this->follows()->save($user);
-    }
-
-    public function unfollow(User $user)
-    {
-        return $this->follows()->detach($user);
-    }
-
-    public function hasFollow(User $user)
-    {
-        return $this->follows()->where('following_user_id', $user->id)->exists();
     }
 }
